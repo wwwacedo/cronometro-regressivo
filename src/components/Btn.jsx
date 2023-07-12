@@ -14,7 +14,7 @@ export default function Btn({ children, onClick }) {
 }
 
 const Button = styled.button`
-    padding: 1.5rem 1.5rem;
+    padding: 1.2rem 1.2rem;
 	background-color: #0079FF;
 	border: none;
 	border-radius: 2px;
@@ -31,7 +31,7 @@ const Button = styled.button`
         display: flex;
         justify-content: center;
         align-items: center;
-		font-size: 2rem;
+		font-size: 1.5rem;
     }
 
 `
