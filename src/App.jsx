@@ -12,8 +12,8 @@ const Wrapper = styled.div`
 	justify-content: center;
 	gap: 1rem;
 	width: 100%;
-	height: 100vh;
-
+	padding-top: 3rem;
+	
 `
 const Label = styled.h1`
 	font-size: 2rem;
