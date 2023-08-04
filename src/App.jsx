@@ -54,7 +54,7 @@ function App() {
 	}, [ativo]);
 
 	useEffect(() => {
-		if (contador === 0) {
+		if (contador <= 0) {
 			clearInterval(regressivo);
 			setAtivo(false);
 		}
