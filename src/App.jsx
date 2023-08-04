@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import './App.css'
 import Input from './components/Input';
@@ -26,24 +26,17 @@ const Label = styled.h1`
 `
 
 function App() {
-	const [intervalo, setIntervalo] = useState(60);
 	const [contador, setContador] = useState(0);
-	const [ativo, setAtivo] = useState(false);
 	const [regressivo, setRegressivo] = useState();
 	const [segundosIniciais, setSegundosIniciais] = useState(0);
+	const [intervalo, setIntervalo] = useState(60);
+	const ativo = useRef(false);
 
-	const getHour = () => new Date().getHours();
-	const getMinute = () => new Date().getMinutes();
-	const getSecond = () => new Date().getSeconds();
-	const getAllSeconds = () => getHour() * 3600 + getMinute() * 60 + getSecond();
-
-	// useEffect(() => {
-	// 	console.log('intervalo', intervalo, 'contador', contador, 'ativo', ativo)
-	// }, [intervalo, contador, ativo]);
+	const getAllSeconds = () => new Date().getHours() * 3600 + new Date().getMinutes() * 60 + new Date().getSeconds();
 
 	useEffect(() => {
-		if (ativo) {
-			setAtivo(false)
+		if (ativo.current === true) {
+			ativo.current = false;
 			setRegressivo(
 				setInterval(() => {
 					const segundosAtuais = getAllSeconds();
@@ -51,19 +44,19 @@ function App() {
 				}, 1000)
 			)
 		}
-	}, [ativo]);
+	}, [ativo.current]);
 
 	useEffect(() => {
 		if (contador <= 0) {
 			clearInterval(regressivo);
-			setAtivo(false);
+			ativo.current = false;
 		}
 	}, [contador]);
 
 	function handleClick() {
 		setSegundosIniciais(getAllSeconds())
 		clearInterval(regressivo);
-		setAtivo(true);
+		ativo.current = true;
 		setContador(intervalo);
 	}
 
